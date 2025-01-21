@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pride</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+<body>
+<header>
+    <div class="container-header">
+        <a href="{% url 'home' %}" id="logo-header">toolSPACE</a>
+        <a href="#" id="catalog-header">Каталог</a>
+    </div>
+</header>
+
+<div class="container">
+    {% for tool in page_obj.object_list %}
+        <div class="tools">
+            <div class="pic-tools" style="background-image: url({{ tool.image }});"></div>
+            <div class="right-tools">
+                <div class="title-tools">{{ tool.name }}</div>
+                <div class="info-tools">
+                    <div class="price-tools" style="width: 100px;">Цена: {{ tool.price }}р</div>
+                    <div class="away-tools"><a href="{% url 'tools' tool.pk %}">Перейти</a></div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    <!-- Пагинация -->
+    <nav aria-label="Page navigation example" class="pagination-container">
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Назад</a>
+                </li>
+            {% endif %}
+
+            <!-- Ссылка на первую страницу -->
+            {% if page_obj.number > 3 %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1">1</a>
+                </li>
+                <li class="page-item"><span>...</span></li>
+            {% endif %}
+
+            {% with left_limit=page_obj.number|add:-2 right_limit=page_obj.number|add:2 %}
+                {% for p in page_obj.paginator.page_range %}
+                    {% if p >= left_limit and p <= right_limit %}
+                        <li class="page-item {% if page_obj.number == p %}active{% endif %}">
+                            <a class="page-link" href="?page={{ p }}" aria-current="{% if page_obj.number == p %}page{% endif %}">
+                                {{ p }}
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            {% endwith %}
+
+            <!-- Ссылка на последнюю страницу -->
+            {% if page_obj.number < page_obj.paginator.num_pages|add:-2 %}
+                <li class="page-item"><span>...</span></li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+                </li>
+            {% endif %}
+
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">Вперед</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+
+<footer>
+    <div class="container-footer">
+        <a href="{% url 'home' %}" id="logo-header">toolSPACE</a>
+        <a href="#" id="catalog-header">Каталог</a>
+    </div>
+</footer>
+</body>
+</html>

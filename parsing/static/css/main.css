@@ -1,0 +1,32 @@
+/* static/css/pagination.css */
+
+/* Добавляем стиль для пагинации */
+.pagination-container {
+    display: flex;              /* Используем flexbox для горизонтального расположения */
+    justify-content: center;    /* Центрируем элементы пагинации */
+    margin-top: 20px;          /* Отступ сверху */
+}
+.pagination {
+    display: flex;              /* Убираем вертикальное расположение */
+    list-style: none;          /* Убираем стандартные маркеры списка */
+    padding: 0;                /* Убираем отступы */
+}
+.page-item {
+    margin: 0 5px;            /* Отступы между элементами */
+}
+.page-link {
+    text-decoration: none;      /* Убираем подчеркивание */
+    padding: 10px 15px;        /* Увеличиваем область клика */
+    border: 1px solid #ccc;    /* Рамка вокруг ссылки */
+    border-radius: 5px;        /* Скругляем углы */
+    color: #007bff;            /* Цвет текста */
+    background-color: #f8f9fa; /* Фоновый цвет */
+    transition: background-color 0.3s; /* Плавный переход при наведении */
+}
+.page-link:hover {
+    background-color: #e2e6ea; /* Цвет фона при наведении */
+}
+.active .page-link {
+    background-color: #007bff; /* Цвет фона для активной страницы */
+    color: white;               /* Цвет текста для активной страницы */
+}

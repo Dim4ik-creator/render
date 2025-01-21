@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список продуктов</title>
+</head>
+<body>
+    <h1>Продукты с Леруа Мерлен</h1>
+    <ul>
+        {% for product in products %}
+            <li>
+                <h2>{{ product.title }}</h2>
+                <p>{{ product.description }}</p>
+                <p>Цена: {{ product.price }} руб.</p>
+                <a href="{{ product.url }}" target="_blank">Перейти на сайт</a>
+                {% if product.image_url %}
+                    <img src="{{ product.image_url }}" alt="{{ product.title }}">
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
